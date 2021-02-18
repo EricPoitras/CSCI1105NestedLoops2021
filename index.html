@@ -1,21 +1,345 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <!-- head definitions go here -->
-        <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PFHDXXP');</script>
-<!-- End Google Tag Manager -->
-    </head>
-    <body>
-        <!-- the content goes here -->
-        <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PFHDXXP"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-        <p>Hello World!</p>
-    </body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@7.4.1/dist/assets/diagram-js.css" />
+    <title>ProgSim Tutor</title>
+    <style>
+    .table td, .table th {
+      padding: .25rem; 
+      vertical-align: top;
+      border-top: 1px solid #dee2e6;
+      }
+      .highlight:not(.djs-connection) .djs-visual > :nth-child(1) {
+        fill: #FFC107 !important; /* color elements as green */
+      }
+      a.bjs-powered-by{
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="container-fluid">
+      <div class="row justify-content-around mb-2 p-1 bg-dark text-white">
+        <div class="col-auto align-self-center">
+          <img src="assets/logo.png" width="auto" height="25px">
+        </div>
+        <div class="col-auto align-self-center">
+          Understanding Nested Loops
+        </div>
+        <div class="col-auto">
+          <!--<button id="btnLogin" class="btn btn-outline-light" type="button" data-toggle="modal" data-target="#staticBackdrop">Consent Form</button>-->
+          <a id="btnFeedback" class="btn btn-outline-light" target="_blank" href="https://forms.office.com/Pages/ResponsePage.aspx?id=mRm4YH8LLUGSo-F9iunj4FY2Q61whpBCph7ULgGSmKFURVFBTFhXOU5YNkFTWVY4TldRUURQNzJJNS4u" role="button">We Value Your Feedback</a>
+        </div>
+      </div>
+      <div class="row justify-content-center pb-2">
+        <div class="col-6">
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-header">
+                  Control Flow
+                  <!-- TO DO: Add figure -->
+                  
+                </div>
+                <div class="card-body" style="height: 400px;">
+                  <div id="js-canvas" style="height: 350px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <div class="card">
+                <div class="card-header">
+                  Tutor
+                </div>
+                <div class="card-body">
+                  <!-- TO DO: Write white paper - self explanation prompt https://www.learnlab.org/research/wiki/Corrective_self-explanation -->
+                  <p id="question_container">This program will print a table with the powers (1 to 4) of numbers from 1 to 10. What is the state and value of the next step in this program? Explain your rationale by tracing program execution and identifying the previous step.</p>
+                  <form class="form-inline">
+                    <div id="container_construct1" class="form-group">
+                      <label for="menu_state">State : </label>
+                      <select class="form-control ml-2 mr-2" id="menu_state">
+                        <option>Choose one</option>
+                        <option>outer loop</option>
+                        <option>inner loop</option>
+                        <option>i</option>
+                        <option>j</option>
+                        <option>print</option>
+                      </select>
+                    </div>
+                    <div id="container_construct2" class="form-group mt-1">
+                      <label for="menu_value">Value : </label>
+                      <select class="form-control ml-2 mr-2" id="menu_value">
+                        <option>Choose one</option>
+                        <option>a line break</option>
+                        <option>power of i by j</option>
+                        <option>true</option>
+                        <option>false</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>N/A (Not Defined)</option>
+                      </select>
+                    </div>
+                    <div id="container_construct3" class="form-group mt-1">
+                      <label for="menu_reason">Reason : </label>
+                      <select class="form-control ml-1" id="menu_reason">
+                        <option>Choose one</option>
+                        <option>i was incremented</option>
+                        <option>j was incremented</option>
+                        <option>i was initialized</option>
+                        <option>j was initialized</option>
+                        <option>inner condition was false</option>
+                        <option>outer condition was false</option>
+                        <option>inner condition was true</option>
+                        <option>outer condition was true</option>
+                        <option>inner statements was executed</option>
+                        <option>outer statements was executed</option>
+                      </select>
+                    </div>
+                    <div id="container_generate" class="form-group mt-1 d-none">
+                      <label for="text_value">Explanation : </label>
+                      <textarea class="form-control ml-2" rows="2" id="text_value" style="width: 500px;"></textarea>
+                    </div>
+                    <div id="feedback_container" class="mt-3">The next state during runtime execution for <span id="feedback_state">i</span> is set to <span id="feedback_value">1</span> because <span id="feedback_explanation">i is incremented</span>.</div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-between mt-3">
+            <div class="col-auto">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button id="btnToPrevious" type="button" class="btn btn-primary"><i class="fas fa-angle-double-left"></i></button>
+                <button id="btnPrevious" type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i></button>
+                <button id="btnPause" type="button" class="btn btn-primary"><i class="fas fa-pause"></i></button>
+                <button id="btnPlay" type="button" class="btn btn-primary"><i class="fas fa-play"></i></button>
+                <button id="btnNext" type="button" class="btn btn-primary"><i class="fas fa-angle-right"></i></button>
+                <button id="btnToNext" type="button" class="btn btn-primary"><i class="fas fa-angle-double-right"></i></button>
+              </div>
+              <!-- Debugging -->
+              <button type="button" class="btn btn-primary">
+                Step <span id="textCounter" class="badge badge-light">1</span>
+              </button>
+            </div>
+            <div class="col-auto">
+              <span id="textHint" class="mr-2 font-weight-light"></span>
+              <button id="btnHint" class="btn btn-primary" type="button">Hint</button>
+              <button id="btnSubmit" class="btn btn-primary" type="button">Submit</button>       
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-6">
+              <div class="card" style="width: 100%; height: 100%;">
+                <div class="card-header">
+                  Run Time State
+                </div>
+                <div class="card-body">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Memory</th>
+                        <th scope="col">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Outer Loop</th>
+                        <td class="text_stateMemory"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Inner Loop</th>
+                        <td class="text_stateMemory"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">i</th>
+                        <td class="text_stateMemory"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">j</th>
+                        <td class="text_stateMemory"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Print</th>
+                        <td class="text_stateMemory"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card" style="width: 100%">
+                <div class="card-header">
+                  Program Output
+                </div>
+                <div class="card-body">
+                  <textarea id="textOutput" class="form-control" type="text" readonly rows="10"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-6">
+              <div class="card" style="width: 100%; height: 100%;">
+                <div class="card-header">
+                  Pseudocode
+                </div>
+                <div class="card-body p-0">
+                  <div class="bg-warning textPseudocode">
+                    For i from 1 to 10
+                  </div>
+                  <div class="pl-2 textPseudocode">
+                    For j from 1 to 4
+                  </div>
+                  <div class="pl-4 textPseudocode">
+                    Print i to the power of j
+                  </div>
+                  <div class="pl-2 textPseudocode"> 
+                    Print skip a line
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card" style="width: 100%; height: 100%;">
+                    <div class="card-header">
+                      Java Implementation
+                    </div>
+                    <div class="card-body p-0" style="overflow-y: scroll; max-height: 250px;">
+                      <div class="textProgram">public class nestedloop{</div>
+                      <div class="pl-1 textProgram">public static void main(String[] args){</div>
+                      <div class="pl-2 textProgram">final int ROWS = 10;</div>
+                      <div class="pl-2 textProgram">final int COL = 4;</div>
+                      <div class="pl-2 textProgram">for (int i = 1; i <= ROWS; i++) {</div>
+                      <div class="pl-3 textProgram">for (int j = 1; j <= COL; j++) {</div>
+                      <div class="pl-4 textProgram">double power = Math.pow(i,j);</div>
+                      <div class="pl-4 textProgram">System.out.printf("%6.0f ", power);</div>
+                      <div class="pl-3 textProgram">}</div>
+                      <div class="pl-2 textProgram">System.out.println();</div>
+                      <div class="pl-2 textProgram">}</div>
+                      <div class="pl-1 textProgram">}</div>
+                      <div class="textProgram">}</div>
+                    </div>
+                  </div>    
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">CONSENT FORM</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p><span class="h5">Project Title: </span>The effect of corrective and typical self-explanation on tracing program execution in programming tasks</p>
+            <p><span class="h5">Lead Researcher: </span>Eric Poitras, Faculty of Computer Science, Dalhousie University, eric.poitras@dal.ca</p>
+            <p><span class="h5">Other Researchers: </span><br>Raghav Sampangi, Faculty of Computer Science, Dalhousie University<br>Angela Siegel, Faculty of Computer Science, Dalhousie University</p>
+            <p><span class="h5">Introduction: </span>We invite you to take part in a research study being conducted by, Eric Poitras, who is a researcher at Dalhousie University. Choosing whether or not to take part in this research is entirely your choice. There will be no impact on your studies if you decide not to participate in the research. The information below tells you about what is involved in the research, what you will be asked to do and about any benefit, risk, inconvenience or discomfort that you might experience.<br>You should discuss any questions you have about this study with Eric Poitras. Please ask as many questions as you like. If you have questions later, please contact Eric Poitras at eric.poitras@utah.edu.</p>
+            <h5>Purpose and Outline of the Research Study</h5>
+            <p>The aim of this study is to examine the effects of prompting self-explanation while tracing program execution in programming tasks. We compare two different modes of self-explanation (free-response and menu-based with corrective feedback) to a control version with no explicit self-explanation prompts implemented in an interactive, online simulation of a nested loop. We test the effectiveness and efficiency of instruction under these different conditions during a 1-hour session using both log trace user interaction and pretest posttest assessment data. The free-response prompt and feedback condition will receive self-explanation prompts to infer latent program states at the next step of program execution in addition to instructional explanations as a means to correct misconceptions. The menu-based prompt and feedback condition are similar in content, but enable learners to construct an explanation from a dropdown menu of states, values, and rationales. Finally, the control condition will receive an identical interactive, online simulation of a nested loop, but without the benefit of prompts and feedback.</p>
+            <h5>Who Can Take Part in the Research Study</h5>
+            <p>You may participate in this study if you are a student enrolled in CSCI 1105/1110 Introduction to Programming.</p>
+            <h5>What You Will be Asked To Do</h5>
+            <p>If you decide to participate in this research you will be asked to login and complete a lesson in Mimir, the online integrated development environment used in class. The lesson will take place remotely in an asynchronous session that last approximately an hour during Week 5 of the course Winter 2021 term. During the session you will be asked to login to the platform by entering a login key provided by the course instructor and completing a sequence of activities, including a pretest assessment task, either one of three versions of the interactive simulation, and a posttest assessment task.</p>
+            <h5>Possible Benefits, Risks, and Discomforts</h5>
+            <p>Participating in the study might benefit you as a study aid by learning about nested loops. We may also learn best instructional practices that will benefit future students enrolled in CSCI 1105/1110 Introduction to Programming.</p>
+            <p>The risks associated with this study are minimal; there are no known risks for participating in this research beyond being bored or fatigued. You will be able to take breaks between activities to reduce these risks.</p>
+            <h5>Compensation/Reimbursement</h5>
+            <p>To compensate you for your time, we will give you course credit worth 2% of your final grade to complete each activity in the online lesson.</p>
+            <h5>How Your Information Will be Protected</h5>
+            <p>Your participation in this research will be known only to Eric Poitras, the lead researcher. Study communications will be restricted to email without subject lines with the lead researcher to ensure third parties are not aware of who has been recruited.</p>
+            <p>The information that you will provide to us will be kept confidential. Only the lead researcher will have access to the login key in order to de-identify the log user interaction data. The research team will have an obligation to keep all research information confidential. All your identifying information (such as your Dalhousie ID, demographic information, and course assignment grades) will be securely stored on an external storage device separately from your log trace user interaction data. We will use the login key in our written and computer records so that the research information we have about you contains no names. During the study, all electronic records will be kept secure in an encrypted file on the researcher's password-protected computer.</p>
+            <p>We will describe and share our findings by reporting group results and not individual results. This means that you will not be identified in any way in our reports.</p>
+            <p>Once the study is over your identifiable information will be retained for a duration of 4 years for further use in other studies that you may enroll in within the Computer Science Education research cluster at the Faculty of Computer Science. After this 4-year duration, the log user interaction data will be anonymized by deleting all identifiable information.</p>
+            <p>De-identified data generated from the information you provide in this research may be shared publicly (most likely in digital form via the internet) to advance knowledge. I plan to deposit the data in a public research database called the Dalhousie University Dataverse, an institutional dataverse hosted on the Scholars Portal website. All identifiable information collected in this study (such as your Dalhousie ID, demographic information, and course assignment grades) will not be shared. Only the de-identified log user interaction data are shared in an effort to ensure that no one will be able to identify you. Despite these measures, I cannot guarantee your anonymity or predict how those who access the data will use them.</p>
+            <h5>If You Decide to Stop Participating</h5>
+            <p>You are free to leave the study at any time. If you decide to stop participating during the study, you can decide whether you want any of the information that you have provided up to that point to be removed or if you will allow us to use that information. After participating in the study, you can decide for up to the end of the semester term if you want us to remove your data. After that tmie, it will become impossible for us to remove it because the de-identified data will already be analyzed and published.</p>
+            <h5>How to Obtain Results</h5>
+            <p>We will provide a short description of group results when the study is finished on the Computer Science Education research cluster website. No individual results will be provided. You can obtain these results by navigating to the Computer Science Education cluster website (https://www.dal.ca/faculty/computerscience/cs-education.html) at the end of this semester.</p>
+            <h5>Questions</h5>
+            <p>We are happy to talk with you about any questions or concerns you may have about your participation in this research study. Please contact Eric Poitras at eric.poitras@dal.ca at any time with questions, comments, or concenrs about the research study.</p>
+            <p>If you have any ethical concenrs about your participation in this research, you may also contact Research Ethics, Dalhousie University at (902) 494-3423, or email: ethics@dal.ca (and reference REB file # 20XX-XXXX).</p>
+            <h5>Digital Consent</h5>
+            <form>
+              <div class="form-group row">
+                <label for="inputconsent1" class="col-sm-9 col-form-label">I agree that my Dalhousie ID, demographic information, and course assignment grades may be used without identifying me.</label>
+                <div class="col-sm-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radio_consent1" id="consent1_yes" value="Yes" checked>
+                    <label class="form-check-label" for="consent1_yes">Yes</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radio_consent1" id="consent1_no" value="No">
+                    <label class="form-check-label" for="consent1_no">No</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputconsent2" class="col-sm-9 col-form-label">I agree to have my de-identified data included in a public research database.</label>
+                <div class="col-sm-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radio_consent2" id="consent2_yes" value="Yes" checked>
+                    <label class="form-check-label" for="consent2_yes">Yes</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radio_consent2" id="consent2_no" value="No">
+                    <label class="form-check-label" for="consent2_no">No</label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <p>If you agree to complete the lesson, please click Understood to agree to the terms, and then Close.</p>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <!-- viewer -->
+    <script src="https://unpkg.com/bpmn-js@7.4.1/dist/bpmn-viewer.development.js"></script>
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    -->
+    <script src="js/ui.js"></script>
+    <script src="js/domain.js"></script>
+    <script src="js/viewer.js"></script>
+    <script src="js/instruction.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>
